@@ -1,3 +1,6 @@
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3.6'
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'autozimu/LanguageClient-neovim', { 
@@ -49,7 +52,8 @@ set ruler
 set hidden
 
 let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rls']
+            \ 'rust': ['rls'],
+            \ 'python': ['pyls']
             \ }
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_changeThrottle = 0.5
@@ -58,9 +62,9 @@ let g:LanguageClient_changeThrottle = 0.5
 let mapleader=","
 let maplocalleader="\\"
 
-autocmd FileType rs,rust nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-autocmd FileType rs,rust nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-autocmd FileType rs,rust nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+autocmd FileType rs,rust,python nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+autocmd FileType rs,rust,python nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+autocmd FileType rs,rust,python nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 autocmd FileType rs,rust set colorcolumn=80
 
 " Bindings
