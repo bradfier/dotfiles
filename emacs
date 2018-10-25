@@ -35,6 +35,7 @@
            
 ;; Enable projectile globally
 (projectile-global-mode)
+(global-set-key (kbd "C-c p") 'projectile-find-file)
 
 ;; And ido everywhere...
 (require 'flx-ido)
