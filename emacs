@@ -17,8 +17,6 @@
   '(pyenv-mode
     elpy
     company
-    helm
-    helm-projectile
     rust-mode
     rustfmt
     racer
@@ -26,7 +24,8 @@
     company-go
     color-theme-sanityinc-tomorrow
     yaml-mode
-    magit))
+    magit
+    flx-ido))
 
 (mapc #'(lambda (package)
   (unless (package-installed-p package)
@@ -34,8 +33,14 @@
     packagelist)
     
            
-;; Helm first
-(require 'helm-config)
+;; Enable projectile globally
+(projectile-global-mode)
+
+;; And ido everywhere...
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -112,7 +117,7 @@
  '(company-go-gocode-command "/home/bradfier/go/bin/gocode")
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
-   (quotexe
+   (quote
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(exec-path
    (quote
