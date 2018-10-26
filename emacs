@@ -16,9 +16,12 @@
 (defvar packagelist
   '(pyenv-mode
     elpy
+    projectile
+    projectile-ripgrep
     company
+    flycheck
+    eglot
     rust-mode
-    rustfmt
     racer
     go-mode
     company-go
@@ -36,6 +39,13 @@
 ;; Enable projectile globally
 (projectile-global-mode)
 (global-set-key (kbd "C-c p") 'projectile-find-file)
+(global-set-key (kbd "C-c b") 'projectile-display-buffer)
+
+;; Use xref
+(global-set-key (kbd "M-.") 'xref-find-definitions)
+
+;; And flycheck
+(global-flycheck-mode 1)
 
 ;; And ido everywhere...
 (require 'flx-ido)
@@ -60,9 +70,9 @@
                           (company-mode)))
 
 (defun my-go-mode-hook ()
-  ; Call Gofmt before saving                                                    
+  ; Call Gofmt before saving
   (add-hook 'before-save-hook 'gofmt-before-save)
-  ; Godef jump key binding                                                      
+  ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "M-*") 'pop-tag-mark)
   )
@@ -95,6 +105,15 @@
 ;; Python
 (elpy-enable)
 (pyenv-mode)
+
+;; Eglot (JSX for now)
+(require 'eglot)
+(add-to-list 'eglot-server-programs '(js-jsx-mode . ("/home/bradfier/.yarn/bin/flow" "lsp")))
+
+(defun my-js-mode-hook ()
+  (local-set-key (kbd "M-.") 'xref-find-definitions))
+(add-hook 'js-jsx-mode-hook 'my-js-mode-hook)
+
 
 (setq elpy-rpc-backend "jedi")
 (setenv "WORKON_HOME" "/home/bradfier/.cache/pypoetry/virtualenvs/")
